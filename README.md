@@ -52,45 +52,14 @@ Exploratory data analysis using pandas, matplotlib, and seaborn — validating S
 - Clear year-over-year growth in total sales (2015–2018)
 - Strong seasonal pattern: sales spike sharply in Nov/Dec (holiday season), followed by a January dip
 
-![Monthly Sales Trend](./python/images/monthly_sales_trend.png)
+![Monthly Sales Trend](./python/monthly_sales_trend.png)
 
 **Category & Region Performance**
 - Python visualizations confirmed SQL findings — West/East regions lead in sales, Tables/Bookcases show negative profit
 
-![Category and Region Performance](./python/images/category_region_performance.png)
+![Category and Region Performance](./python/category_region_performance.png)
 
 **Discount → Profit Investigation**
 - Initial hypothesis (extreme 50%+ discounts driving Furniture losses) was tested and **revised** based on evidence
 - Real driver: **widespread moderate discounting** — Tables (26% avg discount, 77% of orders discounted) and Bookcases (21% avg discount, 74% of orders discounted) operate on thin margins that can't absorb even moderate discounts
-- Overall Discount–Profit correlation is weak (-0.22) across all categories, but the effect is **highly category-specific** — high-margin categories (Copiers, Labels) absorb discounts easily, while low-margin categories (Tables, Bookcases) do not
-
-![Outlier Detection](./python/images/outlier_detection.png)
-![Correlation Heatmap](./python/images/correlation_heatmap.png)
-
-**Business Recommendation:** Cap discounts on Tables/Bookcases below ~15%, or review base pricing — current discount levels are structurally unprofitable for these sub-categories.
-
----
-
-## 🔜 Coming Next
-
-- [x] Phase 1: SQL Analysis
-- [x] Phase 2: Python EDA
-- [ ] Phase 2: Demand Forecasting (ARIMA, Prophet, model comparison)
-- [ ] Phase 2: Customer segmentation via K-Means clustering
-- [ ] Phase 3: Power BI interactive dashboard
-- [ ] Phase 4: Full case study write-up
-
----
-
-## 📁 Repo Structure
-\```
-/sql
-   01_sql_analysis.sql
-/python
-   02_eda_analysis.ipynb
-   /images
-      monthly_sales_trend.png
-      category_region_performance.png
-      outlier_detection.png
-      correlation_heatmap.png
-\```
+- Overall Discount–Profit correlation is weak (-0.22) across all categories, but the effect is **highly category-specific** — high-margin categories (Copiers, Labels) absorb
