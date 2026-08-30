@@ -1,14 +1,14 @@
 # Retail Sales Analytics & Demand Forecasting
 
-End-to-end retail analytics project using **SQL, Python, and Power BI** on the Superstore dataset — covering data analysis, customer segmentation, demand forecasting, and interactive dashboarding.
+End-to-end retail analytics project using **SQL, Python, and Power BI** on the Superstore dataset — covering data analysis, customer segmentation, demand forecasting, and an interactive dashboard.
 
-🚧 **Project Status: In Progress** — SQL analysis and Python analysis (EDA, forecasting, segmentation) complete. Power BI dashboard coming next.
+🚧 **Project Status: In Progress** — SQL analysis, Python analysis, and Power BI dashboard complete. Case study write-up coming next.
 
 ---
 
 ## 📊 Project Overview
 
-This project analyzes retail sales data to uncover business insights around profitability, customer behavior, and regional performance — then builds predictive models for demand forecasting and customer segmentation.
+This project analyzes retail sales data to uncover business insights around profitability, customer behavior, and regional performance — then builds predictive models for demand forecasting and customer segmentation, and packages it all into an interactive dashboard.
 
 **Dataset:** [Sample Superstore](https://www.kaggle.com/datasets/vivek468/superstore-dataset-final) (Kaggle) — 9,994 orders across Furniture, Office Supplies, and Technology categories (2014–2017).
 
@@ -103,19 +103,56 @@ Applied K-Means clustering (K=4, chosen via Elbow Method) on scaled RFM features
 
 ---
 
+## ✅ Phase 3: Power BI Dashboard
+
+Located in [`/powerbi`](./powerbi/retail_sales_dashboard.pbix)
+
+A 3-page interactive dashboard built on the cleaned data and Python outputs, with proper data modeling (including a dedicated Date table for time intelligence), custom DAX measures, and a consistent Navy/Gold theme matching this repo's branding.
+
+### Page 1: Executive Overview
+
+KPI cards (Total Sales, Total Profit, Total Orders, Profit Margin %), a continuous daily sales trend line (2014-2017), and a Year-over-Year comparison chart built with time-intelligence DAX (`SAMEPERIODLASTYEAR`).
+
+![Executive Overview](./powerbi/overview.png)
+
+### Page 2: Regional & Product Deep-Dive
+
+Interactive Region and Sub-Category slicers, a Region profitability chart, a Sub-Category profit chart (clearly showing Tables, Bookcases, and Supplies in negative territory), and a drill-down Category → Sub-Category matrix — visualizing the same "why is Central underperforming" story from the SQL and Python analysis, now fully interactive.
+
+![Regional Deep-Dive](./powerbi/regional_deep_dive.png)
+
+### Page 3: Forecast & Segmentation
+
+The daily forecast comparison (Actual vs. Baseline vs. ARIMA vs. Prophet) recreated as an interactive chart, alongside a customer segment breakdown (donut chart + average RFM table per segment) matching the K-Means clustering results from Phase 2.
+
+![Forecast and Segmentation](./powerbi/forecast_segmentation.png)
+
+### Key DAX Measures
+
+```dax
+Total Sales = SUM(superstore_cleaned[Sales])
+Profit Margin % = DIVIDE([Total Profit], [Total Sales], 0)
+Sales Last Year = CALCULATE([Total Sales], SAMEPERIODLASTYEAR(DateTable[Date]))
+YoY Growth % = DIVIDE([Total Sales] - [Sales Last Year], [Sales Last Year], 0)
+```
+
+**Technical note:** Time intelligence measures required building a dedicated, continuous `DateTable` (via `CALENDAR()`, marked as an official Date Table) rather than relying on the raw `Order Date` column — a standard Power BI practice, since `SAMEPERIODLASTYEAR()` and `DATEADD()` need a gapless calendar to shift dates correctly.
+
+---
+
 ## 🔜 Coming Next
 
 - [x] Phase 1: SQL Analysis
 - [x] Phase 2: Python EDA
 - [x] Phase 2: Demand Forecasting (ARIMA, Prophet)
 - [x] Phase 2: Customer Segmentation (K-Means)
-- [ ] Phase 3: Power BI interactive dashboard
+- [x] Phase 3: Power BI Dashboard
 - [ ] Phase 4: Full case study write-up
 
 ---
 
 ## 📁 Repo Structure
-\```
+```
 /sql
    01_sql_analysis.sql
 /python
@@ -125,4 +162,9 @@ Applied K-Means clustering (K=4, chosen via Elbow Method) on scaled RFM features
    superstore_cleaned.csv
    daily_forecast_results.csv
    customer_segments.csv
-\```
+/powerbi
+   retail_sales_dashboard.pbix
+   overview.png
+   regional_deep_dive.png
+   forecast_segmentation.png
+```
