@@ -117,4 +117,40 @@ KPI cards (Total Sales, Total Profit, Total Orders, Profit Margin %), a continuo
 
 ![Executive Overview](./powerbi/retail_sales_dashboard.pbix/overview.png)
 
-###
+### Page 2: Regional & Product Deep-Dive
+
+Interactive Region and Sub-Category slicers, a Region profitability chart, a Sub-Category profit chart (clearly showing Tables, Bookcases, and Supplies in negative territory), and a drill-down Category → Sub-Category matrix — visualizing the same "why is Central underperforming" story from the SQL and Python analysis, now fully interactive.
+
+![Regional Deep-Dive](./powerbi/retail_sales_dashboard.pbix/regional_deep_dive.png)
+
+### Page 3: Forecast & Segmentation
+
+The daily forecast comparison (Actual vs. Baseline vs. ARIMA vs. Prophet) recreated as an interactive chart, alongside a customer segment breakdown (donut chart + average RFM table per segment) matching the K-Means clustering results from Phase 2.
+
+![Forecast and Segmentation](./powerbi/retail_sales_dashboard.pbix/forecast_segmentation.png)
+
+### Key DAX Measures
+
+```dax
+Total Sales = SUM(superstore_cleaned[Sales])
+Profit Margin % = DIVIDE([Total Profit], [Total Sales], 0)
+Sales Last Year = CALCULATE([Total Sales], SAMEPERIODLASTYEAR(DateTable[Date]))
+YoY Growth % = DIVIDE([Total Sales] - [Sales Last Year], [Sales Last Year], 0)
+```
+
+**Technical note:** Time intelligence measures required building a dedicated, continuous `DateTable` (via `CALENDAR()`, marked as an official Date Table) rather than relying on the raw `Order Date` column — a standard Power BI practice, since `SAMEPERIODLASTYEAR()` and `DATEADD()` need a gapless calendar to shift dates correctly.
+
+---
+
+## 🔜 Coming Next
+
+- [x] Phase 1: SQL Analysis
+- [x] Phase 2: Python EDA
+- [x] Phase 2: Demand Forecasting (ARIMA, Prophet)
+- [x] Phase 2: Customer Segmentation (K-Means)
+- [x] Phase 3: Power BI Dashboard
+- [x] Phase 4: Case study write-up
+
+---
+
+## 📁 Repo Structure
