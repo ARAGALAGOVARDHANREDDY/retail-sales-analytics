@@ -140,17 +140,3 @@ YoY Growth % = DIVIDE([Total Sales] - [Sales Last Year], [Sales Last Year], 0)
 
 **Technical note:** Time intelligence measures required building a dedicated, continuous `DateTable` (via `CALENDAR()`, marked as an official Date Table) rather than relying on the raw `Order Date` column — a standard Power BI practice, since `SAMEPERIODLASTYEAR()` and `DATEADD()` need a gapless calendar to shift dates correctly.
 
----
-
-## 🔜 Coming Next
-
-- [x] Phase 1: SQL Analysis
-- [x] Phase 2: Python EDA
-- [x] Phase 2: Demand Forecasting (ARIMA, Prophet)
-- [x] Phase 2: Customer Segmentation (K-Means)
-- [x] Phase 3: Power BI Dashboard
-- [x] Phase 4: Case study write-up
-
----
-
-## 📁 Repo Structure
